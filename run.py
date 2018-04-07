@@ -231,7 +231,7 @@ class MasteranimeDL:
 
 
 iface = MasteranimeDL()
-iface.login(str(raw_input('Username: ')), getpass())
+iface.login(str(raw_input('Email: ')), getpass())
 # customization
 # You /could/ hard-code your password here, but should you? NO.
 #iface.login('YourEmailHere@example.com', getpass())
