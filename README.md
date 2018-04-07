@@ -70,7 +70,7 @@ user@host # vlc output/show-title/01.mp4
 
 ## Feedback
 
-If you encounter any problems at all, feel free to open up issues about them.
+If you encounter any problem at all, feel free to open up issue about it.
 Be sure to include the text printout of the error.
 
 
