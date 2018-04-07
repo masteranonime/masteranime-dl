@@ -1,6 +1,8 @@
 #!/bin/bash
 
-sudo apt-get install -y Xvfb python-selenium unzip libnss3
+sudo apt-get update
+sudo apt-get install -y Xvfb python-selenium unzip
+sudo apt-get install -y chromium-browser
 if [ ! -e /usr/local/bin/chromedriver ]
 then
 	TMP_DIR=`mktemp -d`
