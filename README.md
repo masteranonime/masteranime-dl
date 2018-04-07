@@ -134,23 +134,24 @@ Be sure to include the text printout of the error.
 #### XPath
 
 If you read the source, you'll notice a bunch of XPaths stored within.
-These represent elements on the page that I need to send events to throughout the script's operation.
-This is a poor way to accomplish this, but there's seldom a better way to.
-It's also easy to update.
+These represent elements that I need to send events to at various points in the script's execution.
+This is a poor way to accomplish element location because it's so fragile,
+but it's very easy to update.
 
 
 #### Real World Problems
 
-This script doesn't handle missing links very well.
-It decidedly does NOT retry different mirrors / qualities.
-It just fails and adds that specific episode to a blacklist.
+This script doesn't like missing or broken links.
+It decidedly does **not** retry different mirrors / qualities.
+It just fails and adds that specific episode to an internal blacklist.
+This blacklist gets cleared between each run.
+Additionally, if you check that episode off in your account,
+it won't be there for the next run (and the problems might go away as well).
 
-If you encounter an error that is caused by **one** link alone,
-please make an issue about it because I consider that a serious flaw.
-Problems with a single show should not affect any other shows.
-
-This is a good way to find broken links, because that's often the only reason for failure.
-Of course, if you find broken links please inform the site administrators.
+If you encounter an error that fails due to some sort of URL issue
+(you'll see the error printed clearly),
+please report it to the site's administrators.
+You can do that through [this form here](https://docs.google.com/forms/d/e/1FAIpQLSfGfBZY_y4bvXVxHmb7pTpk2DL_DoHaEgiOMXXHMIMqIiiPxA/viewform?c=0&w=1&usp=send_form).
 
 
 #### Quality
@@ -160,8 +161,11 @@ There is no support for mirrors other than `mp4upload` at the moment.
 If you desire different mirror support, please create an issue requesting it.
 
 The cookies that get injected into the page are used to ensure mirror and quality selection.
+These cookie settings only represent the defaults, however.
+If your chosen mirror / quality don't exist, the site will default to the first option in the available list.
+
 The default mirror is `mp4upload` and default quality `480p`, subbed.
-If you wish to change this, you will need to follow these steps:
+If you wish to change this script behavior, you will need to follow these steps:
 
 1. Navigate to any video page.
 1. Select the mirror and quality you desire.
@@ -171,10 +175,7 @@ If you wish to change this, you will need to follow these steps:
 1. Copy down both of their values.
 1. Set these values to the `pref_host` and `pref_mirror` cookies, respectively, in the `set_content_cookies` function of `run.py`
 
-The cookie settings only represent the defaults, however.
-If your chosen mirror / quality don't exist, the site will default to the first in the available list.
-
-If you don't want to change the mirror (`pref_host`), then you don't have to.
+If you don't want to change the mirror (`pref_host`), then you can leave it as is.
 You can change the quality independently.
 The quality format seems to be `[subs]&3B[qual]` where subtitles are indicated with a `1`, and the quality is listed directly.
 (if you're curious, the `&3B` is used to represent a semicolon).
