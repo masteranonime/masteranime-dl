@@ -58,7 +58,7 @@ user@host $ vlc output/show-title
 
 ```bash
 user@host $ ./pad_filenames.sh
-user@host # vlc output/show-title/01.mp4
+user@host $ vlc output/show-title/01.mp4
 ```
 
 ## What it's doing
@@ -81,7 +81,6 @@ Be sure to include the text printout of the error.
 
 * I'm assuming `git` and `python` are already installed on your system.
 * I'm assuming you would like to use `chromium-browser` with `chromedriver` as the driver.
-Otherwise, you'll have two versions of chrome installed.
 
 
 ##### Avoid package bloat
