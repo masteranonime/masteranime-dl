@@ -27,11 +27,40 @@ cd masteranime-dl
 
 * I'm assuming `git` and `python` are already installed on your system.
 * I'm assuming you would like to use `chromium-browser` with `chromedriver` as the driver.
-* I'm assuming you'd like to be able to run the script in a headless environment (without graphics).
-If not, you do **not** need to install `Xvfb` (remove that package from the `install_prereqs.sh` script).
-See below on how to disable using `Xvfb` if you decide to not install its package.
-* If you have `google-chrome` installed, you may want to delete the `chromium-browser` line in `install_prereqs.sh`.
 Otherwise, you'll have two versions of chrome installed.
+
+##### Avoid package bloat
+
+I dislike installing packages that aren't 100% necessary.
+If you're the same way, please consider the following:
+
+1. If you already have `google-chrome` installed,
+you may want to open up `install_prereqs.sh` and delete the `chromium-browser` install line.
+Otherwise, you'll have two copies of a similar browser on your system.
+You may want to keep both to maintain profile separation,
+but selenium-controlled browser sessions are sandboxed from your normal profile anyway.
+They don't even come with your normally-loaded extensions.
+
+1. Consult the following flow chart to decide how to handle `Xvfb`:
+
+```
+Desire ability to run the script in a
+headless (no graphics) environment? ----- yes -----> leave Xvfb alone
+           |
+           no
+           |
+Desire browser window to be
+invisible while script is running? ------ yes -----> leave Xvfb alone
+           |
+           no
+           |
+You don't need Xvfb. Get rid of it.
+```
+
+If you've decided to get rid of `Xvfb`, you'll need to do two things.
+
+1. Open up the `install_prereqs.sh` file and remove the `Xvfb` install line.
+1. See the `Disable Xvfb` section below and follow the complete way to properly disable `Xvfb`.
 
 
 ## How to use it?
