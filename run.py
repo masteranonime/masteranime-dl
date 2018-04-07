@@ -45,7 +45,7 @@ time.sleep(5)
 class MasteranimeDL:
     def __init__(self):
         chrome_options = Options()
-        chrome_options.add_extension('./ublock.crx')
+        chrome_options.add_extension('./ub.crx')
         self.driver = webdriver.Chrome(chrome_options=chrome_options)
         self.blacklist = set()
 
