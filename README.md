@@ -50,8 +50,7 @@ That's normal.
 
 
 #### Disable Xvfb
-
-AKA: What if I want to watch what the browser's doing?
+##### (What if I want to watch what the browser's doing?)
 
 If you want to watch what the browser is doing,
 or if you just don't want to use `Xvfb`,
