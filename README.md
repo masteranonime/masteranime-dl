@@ -13,12 +13,75 @@ cd masteranime-dl
 ./install_prereqs.sh
 ```
 
+See advanced section below for installation notes and considerations.
+
+
+## Usage
+
+#### Download everything you follow
+
+```bash
+user@host $ ./run.py
+Email: my_email_address@email_host.com
+Password: 
+getting links...
+-- snip --
+```
+
+Enter your account `email` and `password` and you will be logged in.
+You won't be able to see your password as you type.
+That's normal.
+
+Keep in mind that the script usually takes a *very* long time to complete.
+You'll want to leave it running overnight (longer, if you have a large number of shows queued up).
+Once it's finished running, you can see what was downloaded by inspecting the `output/` folder.
+
+
+#### Binge watch everything
+
+```bash
+user@host $ ./pad_filenames.sh
+user@host $ vlc output
+```
+
+
+#### Binge watch single show
+
+```bash
+user@host $ ./pad_filenames.sh
+user@host $ vlc output/show-title
+```
+
+
+#### Watch single episode
+
+```bash
+user@host $ ./pad_filenames.sh
+user@host # vlc output/show-title/01.mp4
+```
+
+## What it's doing
+
+1. Logs into your account.
+1. Visits your account's `my-anime` page and downloads links to each new episode you haven't viewed yet.
+1. Visits each new episode link and downloads the video to the `output/` folder.
+1. Repeats until there's nothing left on the `my-anime` page.
+
+
+## Feedback
+
+If you encounter any problems at all, feel free to open up issues about them.
+Be sure to include the text printout of the error.
+
+
+## Advanced
 
 #### Installation Notes:
 
 * I'm assuming `git` and `python` are already installed on your system.
 * I'm assuming you would like to use `chromium-browser` with `chromedriver` as the driver.
 Otherwise, you'll have two versions of chrome installed.
+
 
 ##### Avoid package bloat
 
@@ -51,79 +114,10 @@ You don't need Xvfb. Get rid of it.
 If you've decided to get rid of `Xvfb`, you'll need to do two things.
 
 1. Open up the `install_prereqs.sh` file and remove the `Xvfb` install line.
-1. See the `Disable Xvfb` section below and follow the complete way to properly disable `Xvfb`.
-
-
-## How to use it?
-
-Like this:
-
-```bash
-user@host $ ./run.py
-Email: my_email_address@email_host.com
-Password: 
-getting links...
--- snip --
-```
-
-Enter your account `email` and `password` and you will be logged in.
-You won't be able to see your password as you type.
-That's normal.
-
-Keep in mind that the script usually takes a *very* long time to complete.
-You'll want to leave it running overnight (longer, if you have a large number of shows queued up).
-Once it's finished running, take a look at the output folder with `ls output`.
-
-
-#### Binge Watch
-
-If you want to binge watch the shows (with `vlc output/[show]` for example),
-you'll need to run `./pad_filenames.sh` first.
-
-The downloader script doesn't know how many episodes are in a given show,
-so it doesn't 0-pad the filenames.
-This means they'll play in the wrong order given standard ordering
-(unless you run the `./pad_filenames.sh` script first).
-
-
-#### What it's doing
-
-1. Logs into your account.
-1. Visits your account's `my-anime` page and downloads links to each new episode you haven't viewed yet.
-1. Visits each new episode link and downloads the video to the `output/` folder.
-1. Repeats until there's nothing left on the `my-anime` page.
+1. Follow the `Disable Xvfb` section below
 
 
 #### Disable Xvfb (to watch what the browser is doing)
-
-##### Easy way
-
-This is more of a hacky workaround than anything.
-This is **not** considered "disabling Xvfb".
-In order to do that, you'll need to follow the instructions in the next section.
-
-Locate the following line in `run.py`:
-
-```python
-os.environ["DISPLAY"] = ":1.0"
-```
-
-Copy that line and paste it immediately underneath with "1.0" changed to "0.0".
-It should look like this:
-
-```python
-os.environ["DISPLAY"] = ":1.0"
-os.environ["DISPLAY"] = ":0.0"
-```
-
-If you want to make it go back to not showing the browser,
-delete or comment the line you added.
-
-
-##### Complete way
-
-This is the proper way to disable `Xvfb`.
-The "easy way" still runs `Xvfb` but just configures the rest of the script not to use it.
 
 Open up `run.py` and locate the following (it's right at the top):
 
@@ -134,7 +128,6 @@ Open up `run.py` and locate the following (it's right at the top):
 
 Turn that into:
 
-
 ```python
 # Don't want to use Xvfb? Uncomment the following line:
 """
@@ -142,14 +135,6 @@ Turn that into:
 
 and you're good to go!
 
-
-## Feedback
-
-If you encounter any problems at all, feel free to open up issues about them.
-Be sure to include the text printout of the error.
-
-
-## Advanced
 
 #### XPath
 
