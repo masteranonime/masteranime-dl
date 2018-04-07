@@ -1,7 +1,8 @@
 #!/bin/bash
 
 sudo apt-get update
-sudo apt-get install -y Xvfb python-selenium unzip
+sudo apt-get install -y python-selenium unzip
+sudo apt-get install -y Xvfb
 sudo apt-get install -y chromium-browser
 if [ ! -e /usr/local/bin/chromedriver ]
 then
