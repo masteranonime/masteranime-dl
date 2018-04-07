@@ -20,7 +20,7 @@ cd masteranime-dl
 ```
 
 
-### Installation Notes:
+#### Installation Notes:
 
 * I'm assuming `git` and `python` are already installed on your system
 * I'm assuming you would like to use `chromium-browser` with `chromedriver` as the driver
@@ -47,7 +47,7 @@ You won't be able to see your password as you type.
 That's normal.
 
 
-### Disable Xvfb
+#### Disable Xvfb
 
 AKA: What if I want to watch what the browser's doing?
 
