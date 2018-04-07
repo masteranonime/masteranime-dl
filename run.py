@@ -73,6 +73,8 @@ class MasteranimeDL:
     def get_show_links(self):
         print('getting links...')
         self.goto('http://www.masterani.me/my-anime')
+	# double load to get rid of differently-styled new section
+        self.goto('http://www.masterani.me/my-anime')
         self.links = []
         xpath = '//*[@id="myanime"]/div[2]/div/div[{}]/div/a[2]'
         try:
