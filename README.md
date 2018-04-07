@@ -13,7 +13,7 @@ Please read the `LICENSE` file for licensing details.
 ## Installing
 
 Currently, this script only works on Linux with `chromium-browser` and `chromedriver`.
-It should be able to work on other platforms with other drivers,
+It should be able to work on other platforms with other browsers and their drivers,
 but that's left as an exercise for the reader.
 
 ```bash
