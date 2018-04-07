@@ -5,13 +5,14 @@
 This software is for educational purposes ONLY.
 It does NOT come with a warranty, express or implied.
 Do NOT use this software to break the law in your local jurisdiction.
+
 Also, this work is released under GPLv3.
 Please read the `LICENSE` file for licensing details.
 
 
 ## Installing
 
-Currently, this only works on Linux with `chromium-browser` and `chromedriver`.
+Currently, this script only works on Linux with `chromium-browser` and `chromedriver`.
 It should be able to work on other platforms with other drivers,
 but that's left as an exercise for the reader.
 
@@ -27,10 +28,10 @@ cd masteranime-dl
 * I'm assuming `git` and `python` are already installed on your system.
 * I'm assuming you would like to use `chromium-browser` with `chromedriver` as the driver.
 * I'm assuming you'd like to be able to run the script in a headless environment (without graphics).
-If not, you do not need to install `Xvfb`.
-See below on how to disable using `Xvfb`.
-* If you have `google-chrome` installed, you may want comment out the `chromium-browser` install line and see if it works.
-If not, you can change it back and rerun the install script without issue.
+If not, you do **not** need to install `Xvfb` (remove that package from the `install_prereqs.sh` script).
+See below on how to disable using `Xvfb` if you decide to not install its package.
+* If you have `google-chrome` installed, you may want to delete the `chromium-browser` line in `install_prereqs.sh`.
+Otherwise, you'll have two versions of chrome installed.
 
 
 ## How to use it?
@@ -73,12 +74,36 @@ This means they'll play in the wrong order given standard ordering
 1. Repeats until there's nothing left on the `my-anime` page.
 
 
-#### Disable Xvfb
-##### (What if I want to watch what the browser's doing?)
+#### Disable Xvfb (to watch what the browser is doing)
 
-If you want to watch what the browser is doing,
-or if you just don't want to use `Xvfb`,
-you can easily disable it.
+##### Easy way
+
+This is more of a hacky workaround than anything.
+This is **not** considered "disabling Xvfb".
+In order to do that, you'll need to follow the instructions in the next section.
+
+Locate the following line in `run.py`:
+
+```python
+os.environ["DISPLAY"] = ":1.0"
+```
+
+Copy that line and paste it immediately underneath with "1.0" changed to "0.0".
+It should look like this:
+
+```python
+os.environ["DISPLAY"] = ":1.0"
+os.environ["DISPLAY"] = ":0.0"
+```
+
+If you want to make it go back to not showing the browser,
+delete or comment the line you added.
+
+
+##### Complete way
+
+This is the proper way to disable `Xvfb`.
+The "easy way" still runs `Xvfb` but just configures the rest of the script not to use it.
 
 Open up `run.py` and locate the following (it's right at the top):
 
