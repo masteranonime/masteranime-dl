@@ -1,4 +1,5 @@
 *.swp
 stub.py
 output/*
+help/*
 
