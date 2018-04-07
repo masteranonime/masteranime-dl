@@ -22,6 +22,7 @@ See advanced section below for installation notes and considerations.
 
 ```bash
 user@host $ ./run.py
+
 Email: my_email_address@email_host.com
 Password: 
 getting links...

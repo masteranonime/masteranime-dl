@@ -1,13 +1,18 @@
 #!/usr/bin/env python2.7
 
+print('')
 import re
 import os
 import sys
 import time
 import urllib2
 from getpass import getpass
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+try:
+    from selenium import webdriver
+    from selenium.webdriver.chrome.options import Options
+except ImportError:
+    print('maybe try installing the prerequisites first? >:|\n')
+    sys.exit(1)
 
 
 # Don't want to use Xvfb? Uncomment the following line:
@@ -23,11 +28,11 @@ class Xvfb:
         self.process.kill()
     def setup(self):
         # setup X virtual framebuffer for our browser
-	with open('/dev/null', 'w') as black_hole:
-		self.process = subprocess.Popen(['Xvfb', ':1', '-screen', '0', '1024x768x8'],
-						stdin=black_hole,
-						stdout=black_hole,
-						stderr=black_hole)
+        with open('/dev/null', 'w') as black_hole:
+            self.process = subprocess.Popen(['Xvfb', ':1', '-screen', '0', '1024x768x8'],
+                                            stdin=black_hole,
+                                            stdout=black_hole,
+                                            stderr=black_hole)
 xvfb = Xvfb()
 # wanna use python3.3+? be my guest:
 # python3.3+:
@@ -78,7 +83,7 @@ class MasteranimeDL:
     def get_show_links(self):
         print('getting links...')
         self.goto('http://www.masterani.me/my-anime')
-	# double load to get rid of differently-styled new section
+    # double load to get rid of differently-styled new section
         self.goto('http://www.masterani.me/my-anime')
         self.links = []
         xpath = '//*[@id="myanime"]/div[2]/div/div[{}]/div/a[2]'
