@@ -5,11 +5,16 @@ import os
 import sys
 import time
 import urllib2
-import threading
-import subprocess
 from getpass import getpass
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+
+
+# Don't want to use Xvfb? Uncomment the following line:
+# """
+
+import threading
+import subprocess
 
 class Xvfb:
     def __init__(self):
@@ -23,7 +28,6 @@ class Xvfb:
 						stdin=black_hole,
 						stdout=black_hole,
 						stderr=black_hole)
-
 xvfb = Xvfb()
 # wanna use python3.3+? be my guest:
 # python3.3+:
@@ -35,6 +39,7 @@ thread.start()
 os.environ["DISPLAY"] = ":1.0"
 time.sleep(5)
 
+# """
 
 
 class MasteranimeDL:
