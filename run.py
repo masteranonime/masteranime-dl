@@ -18,7 +18,11 @@ class Xvfb:
         self.process.kill()
     def setup(self):
         # setup X virtual framebuffer for our browser
-        self.process = subprocess.Popen(['Xvfb', ':1', '-screen', '0', '1024x768x8'])
+	with open('/dev/null', 'w') as black_hole:
+		self.process = subprocess.Popen(['Xvfb', ':1', '-screen', '0', '1024x768x8'],
+						stdin=black_hole,
+						stdout=black_hole,
+						stderr=black_hole)
 
 xvfb = Xvfb()
 # wanna use python3.3+? be my guest:
