@@ -4,7 +4,9 @@
 
 This software is for educational purposes ONLY.
 It does NOT come with a warranty, express or implied.
-Do NOT use this software to download copyrighted works.
+Do NOT use this software to break the law in your local jurisdiction.
+Also, this work is released under GPLv3.
+Please read the `LICENSE` file for licensing details.
 
 
 ## Installing
