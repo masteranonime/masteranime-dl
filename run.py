@@ -163,7 +163,7 @@ class MasteranimeDL:
             print('URLError = ' + str(e.reason))
             return False
 
-        target = "output/" + re.sub('.*\d+-', '', link) + '.mp4'
+        target = "output/" + re.sub('.*\d{2,}-', '', link) + '.mp4'
         if re.match('.*https://www\.masterani\.me.*', target):
             print("target = '{}', aborting".format(target))
             return False
