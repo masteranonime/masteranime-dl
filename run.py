@@ -104,7 +104,12 @@ class MasteranimeDL:
     def set_content_cookies(self):
         print('injecting cookies...')
         self.set_cookie({'name' : 'pref_host', 'value' : '1'})
-        self.set_cookie({'name' : 'pref_mirror', 'value' : '1%3B480'})
+        # subs, 480p:
+        #self.set_cookie({'name' : 'pref_mirror', 'value' : '1%3B480'})
+        # subs, 720p:
+        #self.set_cookie({'name' : 'pref_mirror', 'value' : '1%3B720'})
+        # subs, 1080p:
+        self.set_cookie({'name' : 'pref_mirror', 'value' : '1%3B1080'})
 
     def set_cookie(self, cookie):
         base = {
@@ -158,9 +163,9 @@ class MasteranimeDL:
             print('nevermind.')
             return False
         try:
-            video_handle = urllib2.urlopen(url, timeout=60)
+            video_handle = urllib2.urlopen(url)
         except urllib2.URLError, e:
-            print('URLError = ' + str(e.reason))
+            print('URLError: {}'.format(str(e.reason)))
             return False
 
         target = "output/" + re.sub('.*\d{2,}-', '', link) + '.mp4'
@@ -174,10 +179,11 @@ class MasteranimeDL:
             while True:
                 try:
                     # don't load whole file into memory
-                    data = video_handle.read(8192)
-                except Exception:
+                    # read 16KiB at a time (2^14 bytes)
+                    data = video_handle.read(2**14)
+                except IOError, e:
+                    print('IOError ({}): {}'.format(e.errno, e.strerror))
                     output.close()
-                    os.remove(target)
                     return False
                 if data:
                     output.write(data)
@@ -200,20 +206,20 @@ class MasteranimeDL:
     def close(self):
         self.driver.quit()
 
-    def get_by_xpath(self, field, timeout=30, hard_fail=False):
+    def get_by_xpath(self, field, timeout=60, hard_fail=False):
         fields_dict = {
-                    'login' : '//*[@id="navigation"]/div[1]/div[2]/a',
-                    'username' : '/html/body/div[2]/div/div[2]/form/div[1]/div/input',
-                    'password' : '/html/body/div[2]/div/div[2]/form/div[2]/div/input',
-                    'submit' : '/html/body/div[2]/div/div[2]/form/div[3]/button',
-                    'profile' : '//*[@id="navigation"]/div[1]/div[2]/div[1]/a[1]',
-                    'frame' : '//*[@id="watch"]/div/div[1]/div/div[3]/div[2]/div/iframe',
-                    'host' : '//*[@id="host-dropdown"]/div/div[1]',
-                    'quality' : '//*[@id="quality-dropdown"]/div/div[3]',
-                    'video_mp4upload' : '//*[@id="player"]/div[2]/video',
-                    'frame_masteranime' : '//*[@id="video_html5_api"]',
-                    'check_box' : '//*[@id="watch"]/div/div[2]/div/div[2]/a[1]',
-                 }
+            'login' : '//*[@id="navigation"]/div[1]/div[2]/a',
+            'username' : '/html/body/div[2]/div/div[2]/form/div[1]/div/input',
+            'password' : '/html/body/div[2]/div/div[2]/form/div[2]/div/input',
+            'submit' : '/html/body/div[2]/div/div[2]/form/div[3]/button',
+            'profile' : '//*[@id="navigation"]/div[1]/div[2]/div[1]/a[1]',
+            'frame' : '//*[@id="watch"]/div/div[1]/div/div[3]/div[2]/div/iframe',
+            'host' : '//*[@id="host-dropdown"]/div/div[1]',
+            'quality' : '//*[@id="quality-dropdown"]/div/div[3]',
+            'video_mp4upload' : '//*[@id="player"]/div[2]/video',
+            'frame_masteranime' : '//*[@id="video_html5_api"]',
+            'check_box' : '//a[@data-tooltip="Mark as watched"]',
+        }
         # if not in fields list,
         if field.lower() not in fields_dict:
             # perform **VERY** weak XPath conformance check (don't be dumb):
