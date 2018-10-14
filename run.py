@@ -206,14 +206,14 @@ class MasteranimeDL:
     def close(self):
         self.driver.quit()
 
-    def get_by_xpath(self, field, timeout=60, hard_fail=False):
+    def get_by_xpath(self, field, timeout=30, hard_fail=False):
         fields_dict = {
             'login' : '//*[@id="navigation"]/div[1]/div[2]/a',
             'username' : '/html/body/div[2]/div/div[2]/form/div[1]/div/input',
             'password' : '/html/body/div[2]/div/div[2]/form/div[2]/div/input',
             'submit' : '/html/body/div[2]/div/div[2]/form/div[3]/button',
             'profile' : '//*[@id="navigation"]/div[1]/div[2]/div[1]/a[1]',
-            'frame' : '//*[@id="watch"]/div/div[1]/div/div[3]/div[2]/div/iframe',
+            'frame' : '//iframe',
             'host' : '//*[@id="host-dropdown"]/div/div[1]',
             'quality' : '//*[@id="quality-dropdown"]/div/div[3]',
             'video_mp4upload' : '//*[@id="player"]/div[2]/video',
